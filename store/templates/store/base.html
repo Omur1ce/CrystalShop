@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>{% block title %}Crystal Shop{% endblock %}</title>
+  <style>
+    body{font-family:system-ui,Arial;margin:0;background:#0b0b1e;color:#f2f3ff}
+    header{position:sticky;top:0;background:rgba(7,7,19,.7);backdrop-filter:blur(10px);padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.08)}
+    a{color:inherit;text-decoration:none}
+    .row{display:flex;align-items:center;justify-content:space-between;gap:12px;max-width:1000px;margin:0 auto}
+    .pill{border:1px solid rgba(255,255,255,.15);padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.06)}
+    .container{max-width:1000px;margin:0 auto;padding:18px 16px}
+    input{padding:10px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);color:#fff}
+    button{cursor:pointer}
+    .btn{padding:10px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);color:#fff}
+    .btn-primary{background:linear-gradient(135deg, rgba(184,167,255,.35), rgba(101,230,255,.20));border-color:rgba(184,167,255,.35)}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    .card{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);border-radius:18px;padding:14px}
+    .muted{opacity:.75}
+    @media(max-width:850px){.grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<header>
+  <div class="row">
+    <a href="/" class="pill"><strong>✶ Crystal Shop</strong></a>
+
+    <form action="/" method="get" style="display:flex;gap:8px;align-items:center;flex:1;max-width:520px">
+      <input name="q" placeholder="Search crystals..." value="{{ q|default:'' }}" style="width:100%" />
+      <button class="btn" type="submit">Search</button>
+    </form>
+
+    <div style="display:flex;gap:8px;align-items:center">
+      <a class="pill" href="/cart/">Cart ({{ cart_count|default:0 }})</a>
+      {% if user.is_authenticated %}
+        <a class="pill" href="/account/">Account</a>
+        <form action="{% url 'logout' %}" method="post" style="display:inline;">
+          {% csrf_token %}
+          <button class="pill" type="submit">Logout</button>
+        </form>
+      {% else %}
+        <a class="pill" href="/login/">Login</a>
+      {% endif %}
+    </div>
+  </div>
+</header>
+
+<div class="container">
+  {% block content %}{% endblock %}
+</div>
+</body>
+</html>

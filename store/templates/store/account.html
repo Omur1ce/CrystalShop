@@ -1,0 +1,7 @@
+{% extends "store/base.html" %}
+{% block title %}Account{% endblock %}
+{% block content %}
+  <h1>Account</h1>
+  <p class="muted">Logged in as <strong>{{ user.username }}</strong>.</p>
+  <a class="btn" href="/cart/">View cart</a>
+{% endblock %}
