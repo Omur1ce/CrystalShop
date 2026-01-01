@@ -1,0 +1,36 @@
+{% extends "store/base.html" %}
+{% block title %}Checkout{% endblock %}
+{% block content %}
+  <h1>Checkout</h1>
+
+  {% if items %}
+    <div style="display:flex;flex-direction:column;gap:10px">
+      {% for it in items %}
+        <div class="card" style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+          <div>
+            <strong>{{ it.product.name }}</strong>
+            <div class="muted">Qty: {{ it.qty }}</div>
+          </div>
+          <div><strong>£{{ it.line_total|floatformat:2 }}</strong></div>
+        </div>
+      {% endfor %}
+    </div>
+
+    <div class="card" style="margin-top:12px;display:flex;justify-content:space-between;align-items:center">
+      <strong>Total</strong>
+      <strong>£{{ total|floatformat:2 }}</strong>
+    </div>
+
+    <form action="{% url 'create_checkout_session' %}" method="post" style="margin-top:12px">
+      {% csrf_token %}
+      <button class="btn btn-primary" type="submit">Pay with card</button>
+    </form>
+
+    <p class="muted" style="margin-top:10px">
+      Payments are processed securely by Stripe.
+    </p>
+  {% else %}
+    <p class="muted">Your cart is empty.</p>
+    <a class="btn btn-primary" href="{% url 'products' %}">Browse products</a>
+  {% endif %}
+{% endblock %}

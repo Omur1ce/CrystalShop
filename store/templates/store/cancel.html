@@ -1,0 +1,7 @@
+{% extends "store/base.html" %}
+{% block title %}Payment cancelled{% endblock %}
+{% block content %}
+  <h1>Payment cancelled</h1>
+  <p class="muted">No worries — you can try again any time.</p>
+  <a class="btn btn-primary" href="{% url 'checkout' %}">Back to checkout</a>
+{% endblock %}

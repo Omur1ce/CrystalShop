@@ -30,6 +30,16 @@
       <strong>£{{ total|floatformat:2 }}</strong>
     </div>
 
+    <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap">
+      <a class="btn btn-primary" href="{% url 'checkout' %}">Checkout</a>
+      <form action="{% url 'cart_clear' %}" method="post">
+        {% csrf_token %}
+        <button class="btn" type="submit">Clear cart</button>
+      </form>
+    </div>
+
+
+
     <form action="{% url 'cart_clear' %}" method="post" style="margin-top:10px">
       {% csrf_token %}
       <button class="btn" type="submit">Clear cart</button>
